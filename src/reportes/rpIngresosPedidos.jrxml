@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpIngresosPedidos" language="groovy" pageWidth="360" pageHeight="230" columnWidth="320" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d1b1f0ce-3896-47d5-8503-9b796992df19">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaInicio" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.util.Date">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nombreUsuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select sum(totalpedido) as totalpedido, sum (montototalsesion) as totalsesiones, 
+sum(totalpedido) + sum (montototalsesion) as montototal
+from pedido p inner join sesion s ON p.idsesion=s.idsesion 
+inner join usuario u ON p.idusuario=u.idusuario
+where fechaInicio >= $P{fechaInicio}
+    AND fechaFin <= $P{fechaFin}
+    AND estadopago = true
+    AND u.nombresusuario = $P{nombreUsuario};]]>
+	</queryString>
+	<field name="totalpedido" class="java.math.BigDecimal"/>
+	<field name="totalsesiones" class="java.math.BigDecimal"/>
+	<field name="montototal" class="java.math.BigDecimal"/>
+	<title>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="17" y="10" width="281" height="18" uuid="735dab8a-55a5-41f6-b246-690ef2a1e998"/>
+				<textElement>
+					<font size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DE INGRESOS EN PEDIDOS Y SESIONES]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="96" splitType="Stretch">
+			<staticText>
+				<reportElement x="103" y="19" width="16" height="20" uuid="5a225d5c-7e67-4bf4-8513-44e335d63643"/>
+				<text><![CDATA[S/]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="115" y="48" width="16" height="20" uuid="d326a7b4-3185-4b2b-8214-7c4856b40b20"/>
+				<text><![CDATA[S/]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="101" y="76" width="16" height="20" uuid="908c4f69-388d-441a-9ecd-6e60ba129297"/>
+				<text><![CDATA[S/]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="19" width="89" height="20" uuid="d39d08a0-53cd-4ee4-b340-0443609170ef"/>
+				<text><![CDATA[TOTAL PEDIDOS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="118" y="19" width="100" height="20" uuid="63e96398-a451-4bb1-9f6c-9d8d8e3b5be5"/>
+				<textFieldExpression><![CDATA[$F{totalpedido}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="48" width="100" height="20" uuid="0901fbb4-4e76-4bf5-9416-40fa875641f2"/>
+				<text><![CDATA[TOTAL SESIONES:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="131" y="48" width="100" height="20" uuid="f0709904-64a3-4d50-8777-299ab83f3548"/>
+				<textFieldExpression><![CDATA[$F{totalsesiones}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="14" y="76" width="85" height="20" uuid="a283b1a8-ede2-49f2-acad-2d993511f1c0"/>
+				<text><![CDATA[MONTO TOTAL:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="114" y="76" width="100" height="20" uuid="baa3f78d-c2f5-4c63-9099-2d8f7c3533f1"/>
+				<textFieldExpression><![CDATA[$F{montototal}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="27">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="220" y="0" width="100" height="20" uuid="2ecda2a6-ddd4-40c8-86a8-fdf24bed5f4a"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

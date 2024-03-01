@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rpIngresos" language="groovy" pageWidth="360" pageHeight="144" columnWidth="320" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6436447d-802c-4e72-a03b-a6a2febc9082">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fechaInicio" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nombreUsuario" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT SUM(totalventa) AS totalventa
+FROM venta v
+INNER JOIN usuario u ON v.idusuario = u.idusuario
+WHERE fechahoraventa >= $P{fechaInicio}
+    AND fechahoraventa <= $P{fechaFin}
+    AND v.estadopago = true
+    AND u.nombresusuario = $P{nombreUsuario};]]>
+	</queryString>
+	<field name="totalventa" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="0" width="302" height="23" uuid="bb5d7fe7-7f95-4279-bc8b-7649bf74c890"/>
+				<textElement>
+					<font size="18" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DE INGRESOS EN VENTAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="16" y="17" width="98" height="13" uuid="496f1000-5596-4a8c-b42a-9b38075cb644"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[TOTAL VENTAS:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="117" y="17" width="100" height="20" uuid="c57de1b4-1974-4287-b14b-fb42886b817c"/>
+				<textFieldExpression><![CDATA[$F{totalventa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="102" y="17" width="16" height="20" uuid="8a3e2418-077e-4e56-af06-27265417d99b"/>
+				<text><![CDATA[S/]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="220" y="0" width="100" height="20" uuid="be48d1ea-0863-4bcd-b266-9beda2c82320"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
