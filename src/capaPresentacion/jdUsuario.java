@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package capaPresentacion;
 
 import capaInterfaz.componentes.ScrollBar;
@@ -269,11 +264,21 @@ public class jdUsuario extends javax.swing.JDialog {
 
             } else { // Guardar
                 // Validar que los campos no estén vacíos
-                if (txtUsuario.getText().isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Los campos no pueden estar vacios.", "Error",
+                if (txtUsuario.getText().isEmpty() || txtContraseña.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Los campos de usuario y contraseña no pueden estar vacíos.", "Error",
                             JOptionPane.ERROR_MESSAGE);
                     btnRegistrar.setText("REGISTRAR");
                 } else {
+                    // Validar si ya existe un usuario con las mismas credenciales
+                    if (objUsuario.verificarUsuariosIguales(txtUsuario.getText(), txtContraseña.getText())) {
+                        JOptionPane.showMessageDialog(this, "Ya existe un usuario con estas credenciales.", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                        limpiarControles();
+                        btnRegistrar.setText("REGISTRAR");
+                        txtUsuario.requestFocusInWindow();
+                        return;
+                    }
+                    
                     btnRegistrar.setText("REGISTRAR");
                     objUsuario.registrarUsuario(Integer.parseInt(txtID.getText()), txtUsuario.getText(), txtContraseña.getText(), txtNombres.getText(), cboCargo.getSelectedItem().toString());
                     limpiarControles();
@@ -283,7 +288,7 @@ public class jdUsuario extends javax.swing.JDialog {
                 }
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al registrar el usuario: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error al registrar el usuario: GAAAAAAA" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 

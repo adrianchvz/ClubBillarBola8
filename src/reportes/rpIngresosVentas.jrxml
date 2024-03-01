@@ -3,10 +3,10 @@
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<parameter name="fechaInicio" class="java.lang.String">
+	<parameter name="fechaInicio" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="fechaFin" class="java.lang.String">
+	<parameter name="fechaFin" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<parameter name="nombreUsuario" class="java.lang.String">
@@ -16,8 +16,8 @@
 		<![CDATA[SELECT SUM(totalventa) AS totalventa
 FROM venta v
 INNER JOIN usuario u ON v.idusuario = u.idusuario
-WHERE fechahoraventa >= $P{fechaInicio}
-    AND fechahoraventa <= $P{fechaFin}
+WHERE fechaventa >= $P{fechaInicio}
+    AND fechaventa <= $P{fechaFin}
     AND v.estadopago = true
     AND u.nombresusuario = $P{nombreUsuario};]]>
 	</queryString>

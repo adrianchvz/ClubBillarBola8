@@ -332,7 +332,8 @@ public class jdSesion extends javax.swing.JDialog {
             objSesion.iniciarSesion(Integer.parseInt(lblSesion.getText()), Integer.parseInt(txtPrecio.getText()),
                     Integer.parseInt(lblMesa.getText()), chkEstado.isSelected());
             listarSesiones();
-            JOptionPane.showMessageDialog(this, "Sesión registrada correctamente.");
+            JOptionPane.showMessageDialog(this, "Sesión registrada correctamente.", 
+                    "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             // Desactivar el botón de iniciar mesa
             btnIniciar.setEnabled(false);
             // Cambiar el estado de la mesa a "Ocupado"
@@ -366,7 +367,8 @@ public class jdSesion extends javax.swing.JDialog {
             chkEstado.setSelected(true);
             mostrarNumSesion();
             listarSesiones();
-            JOptionPane.showMessageDialog(this, "Sesión terminada correctamente.");
+            JOptionPane.showMessageDialog(this, "Sesión terminada correctamente.", 
+                    "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             btnIniciar.setEnabled(true);
             btnTerminar.setEnabled(false);
         } catch (Exception e) {

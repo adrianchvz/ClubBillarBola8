@@ -1,4 +1,3 @@
-
 package capaPresentacion;
 
 import capaNegocio.clsReporte;
@@ -18,16 +17,15 @@ import net.sf.jasperreports.swing.JRViewer;
 public class jdReporteIngresosPedidos extends javax.swing.JDialog {
 
     clsUsuario objUsuario = new clsUsuario();
-    
+
     public jdReporteIngresosPedidos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.vistaReporte.setVisible(false);
         this.setLocationRelativeTo(null);
-        
+
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -103,23 +101,30 @@ public class jdReporteIngresosPedidos extends javax.swing.JDialog {
         try {
             Container contenedor = this.vistaReporte;
             contenedor.setLayout(new BorderLayout());
-            
+            contenedor.removeAll();
+
             // Obtener fechas del JDateChooser
             Date fechaInicioDate = fechaInicio.getDate();
             Date fechaFinDate = fechaFin.getDate();
-            
+
             // Verificar si se han seleccionado las fechas
             if (fechaInicioDate == null || fechaFinDate == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, seleccione la fecha de inicio y la fecha de fin.", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 return; // Salir del método si no se han seleccionado ambas fechas
             }
-            
+
+            // Verificar que la fecha de inicio sea anterior o igual a la fecha de fin
+            if (fechaInicioDate.after(fechaFinDate)) {
+                JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha de fin.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return; // Salir del método si la fecha de inicio es posterior a la fecha de fin
+            }
+
             // Verificar si se ha seleccionado un usuario
             if (cboUsuario.getSelectedItem() == null) {
                 JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario", "Advertencia", JOptionPane.WARNING_MESSAGE);
                 return; // Salir del método si no se ha seleccionado un usuario
             }
-            
+
             // Manejo de los parámetros
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("fechaInicio", fechaInicioDate);
@@ -130,9 +135,11 @@ public class jdReporteIngresosPedidos extends javax.swing.JDialog {
             contenedor.add(objReporte);
 
             this.vistaReporte.setVisible(true);
+            this.vistaReporte.revalidate(); // Volver a validar el contenedor para reflejar los cambios
+            this.vistaReporte.repaint(); // Repintar el contenedor para mostrar el nuevo contenido
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage() + "Error en reporte",
-                "Error", JOptionPane.ERROR_MESSAGE);
+                    "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnReporteActionPerformed
 
@@ -154,12 +161,12 @@ public class jdReporteIngresosPedidos extends javax.swing.JDialog {
         } catch (Exception e) {
         }
     }
-    
-    public Image getIconImage(){
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("recursos/icono.png"));  
+
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("recursos/icono.png"));
         return retValue;
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReporte;

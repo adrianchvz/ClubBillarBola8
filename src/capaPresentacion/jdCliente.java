@@ -326,7 +326,7 @@ public class jdCliente extends javax.swing.JDialog {
                     limpiarControles();
                     listarClientes();
                     JOptionPane.showMessageDialog(this, "Cliente registrado(a) correctamente.",
-                            "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                            "Mensaje", JOptionPane.INFORMATION_MESSAGE); 
                 }
             }
         } catch (Exception e) {
@@ -351,6 +351,7 @@ public class jdCliente extends javax.swing.JDialog {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("recursos/icono.png"));
         return retValue;
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEliminar;

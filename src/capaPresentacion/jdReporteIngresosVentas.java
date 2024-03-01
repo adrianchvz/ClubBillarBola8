@@ -103,7 +103,9 @@ public class jdReporteIngresosVentas extends javax.swing.JDialog {
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
         try {
             Container contenedor = this.vistaReporte;
+
             contenedor.setLayout(new BorderLayout());
+            contenedor.removeAll();
 
             // Obtener fechas del JDateChooser
             Date fechaInicioDate = fechaInicio.getDate();
@@ -115,10 +117,11 @@ public class jdReporteIngresosVentas extends javax.swing.JDialog {
                 return; // Salir del método si no se han seleccionado ambas fechas
             }
 
-            // Formatear fechas a cadenas de texto en el formato "yyyy/mm/dd"
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String fechaInicioString = sdf.format(fechaInicioDate);
-            String fechaFinString = sdf.format(fechaFinDate);
+            // Verificar que la fecha de inicio sea anterior o igual a la fecha de fin
+            if (fechaInicioDate.after(fechaFinDate)) {
+                JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha de fin.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                return; // Salir del método si la fecha de inicio es posterior a la fecha de fin
+            }
 
             // Verificar si se ha seleccionado un usuario
             if (cboUsuario.getSelectedItem() == null) {
@@ -128,20 +131,20 @@ public class jdReporteIngresosVentas extends javax.swing.JDialog {
 
             // Manejo de los parámetros
             Map<String, Object> parametros = new HashMap<>();
-            parametros.put("fechaInicio", fechaInicioString);
-            parametros.put("fechaFin", fechaFinString);
+            parametros.put("fechaInicio", fechaInicioDate);
+            parametros.put("fechaFin", fechaFinDate);
             parametros.put("nombreUsuario", cboUsuario.getSelectedItem().toString());
 
             JRViewer objReporte = new clsReporte().reporteInterno("rpIngresosVentas.jasper", parametros);
             contenedor.add(objReporte);
 
             this.vistaReporte.setVisible(true);
+            this.vistaReporte.revalidate(); // Volver a validar el contenedor para reflejar los cambios
+            this.vistaReporte.repaint(); // Repintar el contenedor para mostrar el nuevo contenido
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage() + "Error en reporte",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-
     }//GEN-LAST:event_btnReporteActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

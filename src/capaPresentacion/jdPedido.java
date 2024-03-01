@@ -360,13 +360,15 @@ public class jdPedido extends javax.swing.JDialog {
                             Double.parseDouble(lblTotalVenta.getText()),
                             Integer.parseInt(txtSesion.getText()), lblUsuario.getText(),
                             lblCliente.getText(), tblDetalle);
-                    JOptionPane.showMessageDialog(this, "Se registró el pedido con éxito.");
+                    JOptionPane.showMessageDialog(this, "Se registró el pedido con éxito.", 
+                            "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     limpiarControles();
                     listarPedidos();
                     lblUsuario.setText(clsSesionUsuario.nombreUsuario);
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos antes de registrar el pedido.");
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos antes de registrar el pedido.", 
+                        "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al registrar el pedido:" + e.getMessage());
@@ -433,7 +435,7 @@ public class jdPedido extends javax.swing.JDialog {
             int filaSeleccionada = tblPedidos.getSelectedRow();
             if (filaSeleccionada == -1) {
                 JOptionPane.showMessageDialog(this, "Por favor, seleccione un pedido para "
-                        + "poder actualizar.");
+                        + "poder actualizar.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 return; // Salir del método si no hay una fila seleccionada
             }
 
@@ -453,7 +455,7 @@ public class jdPedido extends javax.swing.JDialog {
                         Double.parseDouble(lblTotalVenta.getText()),
                         Integer.parseInt(txtSesion.getText()), lblUsuario.getText(),
                         lblCliente.getText(), tblDetalle);
-                JOptionPane.showMessageDialog(this, "Se actualizó el pedido con éxito.");
+                JOptionPane.showMessageDialog(this, "Se actualizó el pedido con éxito.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 limpiarControles();
                 listarPedidos();
                 lblUsuario.setText(clsSesionUsuario.nombreUsuario);
@@ -461,7 +463,7 @@ public class jdPedido extends javax.swing.JDialog {
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "El pedido no se ha podido realizar debido a que la cantidad que "
-                    + "desea actualizar es mayor al stock disponible.");
+                    + "desea actualizar es mayor al stock disponible.", "Mensaje", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -478,7 +480,8 @@ public class jdPedido extends javax.swing.JDialog {
 
     private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
         if (idProductoSeleccionado != -1) { // Verificar si se ha seleccionado un producto
-            String cantidadEliminarString = JOptionPane.showInputDialog(this, "Ingrese la cantidad que desea eliminar:", "Eliminar Producto", JOptionPane.QUESTION_MESSAGE);
+            String cantidadEliminarString = JOptionPane.showInputDialog(this, "Ingrese la cantidad que desea eliminar:", 
+                    "Eliminar Producto", JOptionPane.QUESTION_MESSAGE);
 
             if (cantidadEliminarString != null && !cantidadEliminarString.isEmpty()) {
                 try {
@@ -493,7 +496,8 @@ public class jdPedido extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un producto para eliminar.");
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un producto para eliminar.", 
+                    "Mensaje", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarProductoActionPerformed
 
@@ -503,7 +507,7 @@ public class jdPedido extends javax.swing.JDialog {
             int filaSeleccionada = tblPedidos.getSelectedRow();
             if (filaSeleccionada == -1) {
                 JOptionPane.showMessageDialog(this, "Por favor, seleccione un pedido para "
-                        + "realizar el pago.");
+                        + "realizar el pago.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 return; // Salir del método si no hay una fila seleccionada
             }
 
@@ -525,7 +529,8 @@ public class jdPedido extends javax.swing.JDialog {
             if (opcion == JOptionPane.YES_OPTION) {
                 // Actualizar el estado de pago del pedido a true
                 objPedido.actualizarEstadoPago(idPedidoSeleccionado, true);
-                JOptionPane.showMessageDialog(this, "Se registró el pago con éxito.");
+                JOptionPane.showMessageDialog(this, "Se registró el pago con éxito.", 
+                        "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 // Volver a listar los pedidos para actualizar la tabla de pedidos
                 listarPedidos();
                 limpiarControles();
@@ -613,9 +618,10 @@ public class jdPedido extends javax.swing.JDialog {
                             calcularNuevoPrecio(i);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "Ingrese una cantidad menor o igual a la actual.");
+                        JOptionPane.showMessageDialog(rootPane, "Ingrese una cantidad menor o igual a la actual.", 
+                                "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     }
-                    break; // Salir del bucle después de encontrar la fila correspondiente
+                    break; 
                 }
             }
 

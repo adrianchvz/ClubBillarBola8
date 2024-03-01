@@ -151,7 +151,7 @@ public class jdInventario extends javax.swing.JDialog {
 
         jPanel2 = new javax.swing.JPanel();
         btnAgregarProducto = new javax.swing.JButton();
-        btnEliminarProducto = new javax.swing.JButton();
+        btnActualizarProducto = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDetalle = new javax.swing.JTable();
         btnRegistrar = new javax.swing.JButton();
@@ -193,15 +193,15 @@ public class jdInventario extends javax.swing.JDialog {
         });
         jPanel2.add(btnAgregarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(464, 125, 20, 20));
 
-        btnEliminarProducto.setBorder(null);
-        btnEliminarProducto.setContentAreaFilled(false);
-        btnEliminarProducto.setFocusable(false);
-        btnEliminarProducto.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizarProducto.setBorder(null);
+        btnActualizarProducto.setContentAreaFilled(false);
+        btnActualizarProducto.setFocusable(false);
+        btnActualizarProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarProductoActionPerformed(evt);
+                btnActualizarProductoActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEliminarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(502, 125, 20, 20));
+        jPanel2.add(btnActualizarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(497, 125, 20, 20));
 
         jScrollPane1.setBorder(new javax.swing.border.MatteBorder(null));
 
@@ -368,15 +368,15 @@ public class jdInventario extends javax.swing.JDialog {
         return retValue;
     }
 
-    private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
+    private void btnActualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarProductoActionPerformed
         // Obtener la fila seleccionada en tblDetalle
         int filaSeleccionada = tblDetalle.getSelectedRow();
         if (filaSeleccionada != -1) { // Verificar si se ha seleccionado una fila
             // Mostrar cuadro de diálogo para seleccionar la cantidad a eliminar
             String[] opciones = {"AGREGADO", "DAÑADO", "PERDIDO"};
             int opcionSeleccionada = JOptionPane.showOptionDialog(this,
-                    "Ingrese la cantidad que desea eliminar:",
-                    "Eliminar cantidad",
+                    "Ingrese la cantidad que desea actualizar:",
+                    "Actualizar cantidad",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.QUESTION_MESSAGE,
                     null,
@@ -391,19 +391,20 @@ public class jdInventario extends javax.swing.JDialog {
             // Procesar la cantidad a eliminar según la opción seleccionada
             switch (opcionSeleccionada) {
                 case 0: // Agregado
-                    eliminarCantidad(filaSeleccionada, agregadoActual, "agregado");
+                    actualizarCantidad(filaSeleccionada, agregadoActual, "agregado");
                     break;
                 case 1: // Dañado
-                    eliminarCantidad(filaSeleccionada, dañadoActual, "dañado");
+                    actualizarCantidad(filaSeleccionada, dañadoActual, "dañado");
                     break;
                 case 2: // Perdido
-                    eliminarCantidad(filaSeleccionada, perdidoActual, "perdido");
+                    actualizarCantidad(filaSeleccionada, perdidoActual, "perdido");
                     break;
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila para eliminar.");
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila para actualizar.",
+                    "Mensaje", JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_btnEliminarProductoActionPerformed
+    }//GEN-LAST:event_btnActualizarProductoActionPerformed
 
     private void tblDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDetalleMouseClicked
         // Obtener el índice de la fila seleccionada
@@ -480,7 +481,7 @@ public class jdInventario extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void agregarProducto(int producto, int agregado, int dañado, int perdido) {
-        if (producto != 0 && agregado != 0) {
+        if (producto != 0) {
             ResultSet rs = null;
             try {
                 DefaultTableModel modelo = (DefaultTableModel) tblDetalle.getModel();
@@ -555,26 +556,25 @@ public class jdInventario extends javax.swing.JDialog {
 
     }
 
-    private void eliminarCantidad(int filaSeleccionada, int cantidadActual, String tipoCantidad) {
-    String input = JOptionPane.showInputDialog(this, "Ingrese la cantidad a eliminar:");
-    if (input != null && !input.isEmpty()) {
-        try {
-            int cantidadEliminar = Integer.parseInt(input);
-            if (cantidadEliminar <= 0) {
-                JOptionPane.showMessageDialog(this, "La cantidad a eliminar debe ser mayor que cero.");
-            } else if (cantidadEliminar > cantidadActual) {
-                JOptionPane.showMessageDialog(this, "La cantidad a eliminar no puede ser mayor que la cantidad actual.");
-            } else {
-                // Actualizar la cantidad correspondiente
-                int nuevaCantidad = cantidadActual - cantidadEliminar;
-                tblDetalle.setValueAt(nuevaCantidad, filaSeleccionada, getColumnIndexByTipoCantidad(tipoCantidad));
-                JOptionPane.showMessageDialog(this, "Se eliminó la cantidad correctamente.");
+    private void actualizarCantidad(int filaSeleccionada, int cantidadActual, String tipoCantidad) {
+        String input = JOptionPane.showInputDialog(this, "Ingrese la nueva cantidad:", 
+                "Ingresar cantidad", JOptionPane.INFORMATION_MESSAGE);
+        if (input != null && !input.isEmpty()) {
+            try {
+                int nuevaCantidad = Integer.parseInt(input);
+                if (nuevaCantidad < 0) {
+                    JOptionPane.showMessageDialog(this, "La nueva cantidad no puede ser negativa.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // Actualizar la cantidad correspondiente
+                    tblDetalle.setValueAt(nuevaCantidad, filaSeleccionada, getColumnIndexByTipoCantidad(tipoCantidad));
+                    JOptionPane.showMessageDialog(this, "Se actualizó la cantidad correctamente.", 
+                            "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Ingrese un valor numérico válido.");
         }
     }
-}
 
     private int getColumnIndexByTipoCantidad(String tipoCantidad) {
         switch (tipoCantidad) {
@@ -591,8 +591,8 @@ public class jdInventario extends javax.swing.JDialog {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizarProducto;
     private javax.swing.JButton btnAgregarProducto;
-    private javax.swing.JButton btnEliminarProducto;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel jLabel6;

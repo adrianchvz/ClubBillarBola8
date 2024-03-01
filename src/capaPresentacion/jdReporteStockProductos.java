@@ -108,11 +108,14 @@ public class jdReporteStockProductos extends javax.swing.JDialog {
         try {
             Container contenedor = this.vistaReporte;
             contenedor.setLayout(new BorderLayout());
+            contenedor.removeAll();
             JRViewer objReporte = new clsReporte().reporteInterno("rpStockProductos.jasper", null);
             contenedor.add(objReporte);
             objReporte.setVisible(true);
             //Mostrar el reporte
             this.vistaReporte.setVisible(true);
+            this.vistaReporte.revalidate(); // Volver a validar el contenedor para reflejar los cambios
+            this.vistaReporte.repaint(); // Repintar el contenedor para mostrar el nuevo contenido
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage() + " Error en reporte",
                     "Error", JOptionPane.ERROR_MESSAGE);

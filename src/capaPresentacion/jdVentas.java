@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package capaPresentacion;
 
 import capaInterfaz.componentes.ScrollBar;
@@ -50,7 +46,7 @@ public class jdVentas extends javax.swing.JDialog {
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                lblFechaHora.setText(obtenerFechaHoraActual());
+                actualizarFechaHora();
             }
         });
         timer.start(); // Iniciar el Timer
@@ -83,10 +79,12 @@ public class jdVentas extends javax.swing.JDialog {
         lblCliente.setText(String.valueOf(cli));
     }
 
-    private String obtenerFechaHoraActual() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+     private void actualizarFechaHora() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         Date fechaHoraActual = new Date();
-        return dateFormat.format(fechaHoraActual);
+        lblFecha.setText(dateFormat.format(fechaHoraActual));
+        lblHora.setText(timeFormat.format(fechaHoraActual));
     }
 
     private void mostrarNumVenta() {
@@ -102,7 +100,7 @@ public class jdVentas extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
-        lblFechaHora = new javax.swing.JLabel();
+        lblFecha = new javax.swing.JLabel();
         lblCliente = new javax.swing.JLabel();
         btnBuscarCliente = new javax.swing.JButton();
         lblUsuario = new javax.swing.JLabel();
@@ -117,6 +115,7 @@ public class jdVentas extends javax.swing.JDialog {
         btnPagar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         txtVenta = new javax.swing.JLabel();
+        lblHora = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -140,9 +139,9 @@ public class jdVentas extends javax.swing.JDialog {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblFechaHora.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblFechaHora.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel2.add(lblFechaHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(132, 72, 130, 22));
+        lblFecha.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblFecha.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 71, 80, 22));
 
         lblCliente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblCliente.setForeground(new java.awt.Color(0, 0, 0));
@@ -271,6 +270,10 @@ public class jdVentas extends javax.swing.JDialog {
         txtVenta.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(txtVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 73, 40, 20));
 
+        lblHora.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblHora.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(lblHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(272, 73, 60, 20));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/frmVentas.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1200, 530));
 
@@ -319,7 +322,8 @@ public class jdVentas extends javax.swing.JDialog {
 
     private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
         if (idProductoSeleccionado != -1) { // Verificar si se ha seleccionado un producto
-            String cantidadEliminarString = JOptionPane.showInputDialog(this, "Ingrese la cantidad que desea eliminar:", "Eliminar Producto", JOptionPane.QUESTION_MESSAGE);
+            String cantidadEliminarString = JOptionPane.showInputDialog(this, "Ingrese la cantidad que desea eliminar:", 
+                    "Eliminar Producto", JOptionPane.QUESTION_MESSAGE);
 
             if (cantidadEliminarString != null && !cantidadEliminarString.isEmpty()) {
                 try {
@@ -334,7 +338,8 @@ public class jdVentas extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un producto para eliminar.");
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un producto para eliminar.", 
+                    "Mensaje", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarProductoActionPerformed
 
@@ -351,13 +356,14 @@ public class jdVentas extends javax.swing.JDialog {
                     options,
                     options[0]);
             if (!txtVenta.getText().isEmpty() && !lblTotalVenta.getText().isEmpty()
-                    && !lblFechaHora.getText().isEmpty() && !lblCliente.getText().isEmpty()
+                    && !lblFecha.getText().isEmpty() && !lblHora.getText().isEmpty() && !lblCliente.getText().isEmpty()
                     && !lblUsuario.getText().isEmpty()) {
                 if (opcion == JOptionPane.YES_OPTION) {
                     objVenta.registrar(Integer.parseInt(txtVenta.getText()),
                             Double.parseDouble(lblTotalVenta.getText()), lblCliente.getText(),
                             lblUsuario.getText(), tblDetalle);
-                    JOptionPane.showMessageDialog(this, "Se registró la venta con éxito.");
+                    JOptionPane.showMessageDialog(this, "Se registró la venta con éxito.", 
+                            "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     limpiarControles();
                     listarVentas();
                     lblUsuario.setText(clsSesionUsuario.nombreUsuario);
@@ -365,7 +371,7 @@ public class jdVentas extends javax.swing.JDialog {
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos antes "
-                        + "de registrar la venta.");
+                        + "de registrar la venta.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } catch (Exception e) {
@@ -393,7 +399,8 @@ public class jdVentas extends javax.swing.JDialog {
             // Verificar si hay una fila seleccionada en la tabla
             int filaSeleccionada = tblVentas.getSelectedRow();
             if (filaSeleccionada == -1) {
-                JOptionPane.showMessageDialog(this, "Por favor, seleccione una venta para realizar el pago.");
+                JOptionPane.showMessageDialog(this, "Por favor, seleccione una venta para realizar el pago.", 
+                        "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 return; // Salir del método si no hay una fila seleccionada
             }
 
@@ -415,7 +422,8 @@ public class jdVentas extends javax.swing.JDialog {
             if (opcion == JOptionPane.YES_OPTION) {
                 // Actualizar el estado de pago del pedido a true
                 objVenta.actualizarEstadoPago(idVentaSeleccionado);
-                JOptionPane.showMessageDialog(this, "Se registró el pago con éxito.");
+                JOptionPane.showMessageDialog(this, "Se registró el pago con éxito.", 
+                        "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 // Volver a listar los pedidos para actualizar la tabla de pedidos
                 listarVentas();
                 limpiarControles();
@@ -431,7 +439,7 @@ public class jdVentas extends javax.swing.JDialog {
 
         try {
             txtVenta.setText(String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 0)));
-            lblCliente.setText(String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 4)));
+            lblCliente.setText(String.valueOf(tblVentas.getValueAt(tblVentas.getSelectedRow(), 5)));
 
             int filaSeleccionada = tblVentas.getSelectedRow();
             int idVenta = Integer.parseInt(tblVentas.getValueAt(filaSeleccionada, 0).toString());
@@ -508,7 +516,7 @@ public class jdVentas extends javax.swing.JDialog {
                 int stock = objProducto.getStock(producto);
                 if (cantidad > stock) {
                     cantidad = stock;
-                    JOptionPane.showMessageDialog(rootPane, "Stock insuficiente");
+                    JOptionPane.showMessageDialog(rootPane, "Stock insuficiente", "Stock", JOptionPane.INFORMATION_MESSAGE);
                 }
 
                 rs = objProducto.buscarProductos(producto);
@@ -553,7 +561,8 @@ public class jdVentas extends javax.swing.JDialog {
                             calcularNuevoPrecio(i);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "Ingrese una cantidad menor o igual a la actual.");
+                        JOptionPane.showMessageDialog(rootPane, "Ingrese una cantidad menor o igual a la actual.", 
+                                "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     }
                     break; // Salir del bucle después de encontrar la fila correspondiente
                 }
@@ -639,7 +648,8 @@ public class jdVentas extends javax.swing.JDialog {
         String estado = "";
 
         modelo.addColumn("VENTA");
-        modelo.addColumn("FECHA - HORA");
+        modelo.addColumn("FECHA");
+        modelo.addColumn("HORA");
         modelo.addColumn("TOTAL VENTA");
         modelo.addColumn("ESTADO");
         modelo.addColumn("CLIENTE");
@@ -649,39 +659,45 @@ public class jdVentas extends javax.swing.JDialog {
             rsVentas = objVenta.listarVentas();
             while (rsVentas.next()) {
 
+                String fechaString = rsVentas.getString("fechaVenta");
+                String horaString = rsVentas.getString("horaVenta");
+
+                SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm:ss");
+                SimpleDateFormat sdfOutput = new SimpleDateFormat("dd-MM-yyyy");
+
+                Date fechaInicio = sdfInput.parse(fechaString);
+                Date horaInicio = sdfHora.parse(horaString);
+
+                String fechaFormateada = sdfOutput.format(fechaInicio);
+                String horaFormateada = sdfHora.format(horaInicio);
+                
                 registro = new Vector();
 
                 registro.add(0, rsVentas.getInt("idventa"));
-                // Convertir la fecha y hora de String a Date
-                String fechaHoraString = rsVentas.getString("fechahoraventa");
-                SimpleDateFormat sdfInput = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date fechaHoraVenta = sdfInput.parse(fechaHoraString);
-
-                // Formatear la fecha y hora en el formato deseado ('yyyymmdd hh:mi:ss tt')
-                SimpleDateFormat sdfOutput = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
-                String fechaHoraFormateada = sdfOutput.format(fechaHoraVenta);
-
-                registro.add(1, fechaHoraFormateada);
-                registro.add(2, rsVentas.getDouble("totalventa"));
+                registro.add(1, fechaFormateada);
+                registro.add(2, horaFormateada);
+                registro.add(3, rsVentas.getDouble("totalventa"));
                 if (rsVentas.getString("estadopago").equals("t")) {
                     estado = "PAGADO";
                 } else {
                     estado = "NO PAGADO";
                 }
-                registro.add(3, estado);
-                registro.add(4, rsVentas.getString("nombrescliente"));
-                registro.add(5, rsVentas.getString("nombresusuario"));
+                registro.add(4, estado);
+                registro.add(5, rsVentas.getString("nombrescliente"));
+                registro.add(6, rsVentas.getString("nombresusuario"));
 
                 modelo.addRow(registro);
             }
 
             tblVentas.setModel(modelo);
             tblVentas.getColumnModel().getColumn(0).setPreferredWidth(50);
-            tblVentas.getColumnModel().getColumn(1).setPreferredWidth(130);
-            tblVentas.getColumnModel().getColumn(2).setPreferredWidth(70);
-            tblVentas.getColumnModel().getColumn(3).setPreferredWidth(80);
-            tblVentas.getColumnModel().getColumn(4).setPreferredWidth(60);
+            tblVentas.getColumnModel().getColumn(1).setPreferredWidth(60);
+            tblVentas.getColumnModel().getColumn(2).setPreferredWidth(60);
+            tblVentas.getColumnModel().getColumn(3).setPreferredWidth(70);
+            tblVentas.getColumnModel().getColumn(4).setPreferredWidth(80);
             tblVentas.getColumnModel().getColumn(5).setPreferredWidth(60);
+            tblVentas.getColumnModel().getColumn(6).setPreferredWidth(60);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al listar las ventas - " + e.getMessage());
@@ -711,7 +727,8 @@ public class jdVentas extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCliente;
-    private javax.swing.JLabel lblFechaHora;
+    private javax.swing.JLabel lblFecha;
+    private javax.swing.JLabel lblHora;
     private javax.swing.JLabel lblTotalVenta;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JTable tblDetalle;

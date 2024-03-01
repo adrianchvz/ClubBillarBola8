@@ -22,7 +22,7 @@ public class jdBuscarClientes extends javax.swing.JDialog {
     public jdBuscarClientes(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        tblClientes = new Table(); 
+        tblClientes = new Table();
         jScrollPane1.setViewportView(tblClientes);
         jScrollPane1.setVerticalScrollBar(new ScrollBar());
 
@@ -38,7 +38,7 @@ public class jdBuscarClientes extends javax.swing.JDialog {
     public void setEsVenta(boolean esVenta) {
         this.esVenta = esVenta;
     }
-    
+
     private void listarClientes() {
         ResultSet rsClientes = null;
         Vector registro;
@@ -151,8 +151,8 @@ public class jdBuscarClientes extends javax.swing.JDialog {
         return cli;
     }
 
-    public Image getIconImage(){
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("recursos/icono.png"));  
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("recursos/icono.png"));
         return retValue;
     }
     
@@ -223,6 +223,11 @@ public class jdBuscarClientes extends javax.swing.JDialog {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 464, 220));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/frmBuscarCliente.png"))); // NOI18N
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -261,6 +266,10 @@ public class jdBuscarClientes extends javax.swing.JDialog {
             pasarDatos(nom);
         }
     }//GEN-LAST:event_tblClientesMouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        listarClientes();
+    }//GEN-LAST:event_jLabel2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

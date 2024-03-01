@@ -32,7 +32,6 @@ public class jdInicioSesion extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -110,21 +109,30 @@ public class jdInicioSesion extends javax.swing.JDialog {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         try {
             nombreusuario = objUsuario.login(txtUsuario.getText(), txtContraseña.getText());
-            if (!nombreusuario.equals("")) {
-                clsSesionUsuario.nombreUsuario = nombreusuario;
-                String cargoUsuario = objUsuario.obtenerCargoUsuario(txtUsuario.getText()); // Implementa este método para obtener el cargo del usuario desde la base de datos
-                clsSesionUsuario.cargoUsuario = cargoUsuario;
-                JOptionPane.showMessageDialog(null, nombreusuario + ", bienvenido al sistema.");
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Acceso incorrecto, intente nuevamente.");
-                numIntentos++;
-                JOptionPane.showMessageDialog(null, "Intento número " + numIntentos + ". AVISO: A los tres intentos el "
-                        + "sistema se cerrará.");
-                if (numIntentos >= 3) {
-                    JOptionPane.showMessageDialog(null, "Superó los tres intentos. El sistema se cerrará.");
-                    System.exit(0);
+            String usuario = txtUsuario.getText();
+            String contrasena = txtContraseña.getText();
+            if (objUsuario.verificarUsuariosIguales(usuario, contrasena)) {
+                if (!nombreusuario.equals("")) {
+                    clsSesionUsuario.nombreUsuario = nombreusuario;
+                    String cargoUsuario = objUsuario.obtenerCargoUsuario(txtUsuario.getText()); // Implementa este método para obtener el cargo del usuario desde la base de datos
+                    clsSesionUsuario.cargoUsuario = cargoUsuario;
+                    JOptionPane.showMessageDialog(null, nombreusuario + ", bienvenido al sistema.",
+                            "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Acceso incorrecto, intente nuevamente.", "Mensaje", JOptionPane.ERROR);
+                    numIntentos++;
+                    JOptionPane.showMessageDialog(null, "Intento número " + numIntentos + ". AVISO: A los tres intentos el "
+                            + "sistema se cerrará.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                    if (numIntentos >= 3) {
+                        JOptionPane.showMessageDialog(null, "Superó los tres intentos. El sistema se cerrará.",
+                                "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                        System.exit(0);
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Usuario no registrado en el sistema. Por favor, consulte con el administrador.", 
+                "Mensaje", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Mensaje", JOptionPane.ERROR_MESSAGE);
@@ -141,11 +149,11 @@ public class jdInicioSesion extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txtContraseñaKeyPressed
 
-    public Image getIconImage(){
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("recursos/icono.png"));  
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("recursos/icono.png"));
         return retValue;
     }
-    
+
     /**
      * @param args the command line arguments
      */

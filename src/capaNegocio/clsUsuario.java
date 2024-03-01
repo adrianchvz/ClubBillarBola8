@@ -58,12 +58,12 @@ public class clsUsuario {
     }
     
     public void registrarUsuario (Integer id, String usu, String con, String nom, String car) throws Exception{
-        strSQL = "insert into usuario (usuario,contraseña,nombresusuario,cargousuario) values "
-                + "('" + usu +"','" + con +"','" + nom +"','" + car +"')";
+        strSQL = "insert into usuario (idusuario, usuario,contraseña,nombresusuario,cargousuario) values "
+                + "(" + id + ",'" + usu +"','" + con +"','" + nom +"','" + car +"')";
         try{
             objConectar.ejecutarBD(strSQL);
         }catch (Exception e){
-            throw new Exception ("Error al registrar el usuario");
+            throw new Exception ("Error al registrar el usuario xd");
         }
     }
     
@@ -117,15 +117,29 @@ public class clsUsuario {
         } catch (Exception e) {
             throw new Exception("Error al verificar la existencia del usuario - " + e.getMessage());
         } finally {
-            // Asegúrate de cerrar el ResultSet y cualquier otro recurso aquí
             if (rs != null) {
                 rs.close();
             }
         }
         return false;
+    } 
+    
+    public boolean verificarUsuariosIguales(String usuario, String contraseña) throws Exception {
+    strSQL = "SELECT COUNT(*) AS total FROM usuario WHERE usuario = '" + usuario + "' AND contraseña = '" + contraseña + "'";
+    try {
+        rs = objConectar.consultarBD(strSQL);
+        if (rs.next()) {
+            int total = rs.getInt("total");
+            return total > 0;
+        }
+    } catch (Exception e) {
+        throw new Exception("Error al verificar la existencia del usuario - " + e.getMessage());
+    } finally {
+        if (rs != null) {
+            rs.close();
+        }
     }
-    
+    return false;
 }
-    
-    
 
+}

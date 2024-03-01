@@ -37,9 +37,9 @@ public class clsVenta {
             sent = con.createStatement();
             int usuarioID = obtenerIDUsuario(usuario);
             int clienteID = obtenerIDCliente(cliente);
-            strSQL = "insert into venta (idventa, fechaHoraVenta, totalVenta, estadopago, idcliente, "
+            strSQL = "insert into venta (idventa, fechaventa, horaventa, totalVenta, estadopago, idcliente, "
                     + "idusuario) \n"
-                    + "values (" + idVenta + ",current_timestamp," + total + ",false,"
+                    + "values (" + idVenta + ",current_date,current_time," + total + ",false,"
                     + "" + clienteID + "," + usuarioID + ");";
             sent.executeUpdate(strSQL);
 
@@ -75,7 +75,7 @@ public class clsVenta {
 
     public ResultSet listarVentas() throws Exception {
 
-        strSQL = "SELECT idventa, fechahoraventa, totalventa, estadopago, nombrescliente, nombresusuario "
+        strSQL = "SELECT idventa, fechaventa, horaventa, totalventa, estadopago, nombrescliente, nombresusuario "
                 + "FROM VENTA v INNER JOIN CLIENTE c ON v.idcliente=c.idcliente INNER JOIN "
                 + "USUARIO u ON v.idusuario=u.idusuario where estadopago=false ORDER BY idventa ASC";
         try {
