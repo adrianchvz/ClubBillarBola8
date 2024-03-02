@@ -17,14 +17,13 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setLocationRelativeTo(null);
-        setResizable(true);
+        setResizable(false);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         btnMesa1 = new javax.swing.JButton();
         btnMesa2 = new javax.swing.JButton();
@@ -50,8 +49,6 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setLayout(new java.awt.BorderLayout());
-
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -70,7 +67,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
                 btnMesa1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMesa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 170, 150));
+        jPanel1.add(btnMesa1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 170, 150));
 
         btnMesa2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/btnMesa.png"))); // NOI18N
         btnMesa2.setBorder(null);
@@ -81,7 +78,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
                 btnMesa2MouseClicked(evt);
             }
         });
-        jPanel1.add(btnMesa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 110, 170, 160));
+        jPanel1.add(btnMesa2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 150, 170, 160));
 
         btnMesa3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/btnMesa.png"))); // NOI18N
         btnMesa3.setBorder(null);
@@ -92,7 +89,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
                 btnMesa3MouseClicked(evt);
             }
         });
-        jPanel1.add(btnMesa3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 450, 170, 150));
+        jPanel1.add(btnMesa3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 480, 170, 150));
 
         btnMesa4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/btnMesa.png"))); // NOI18N
         btnMesa4.setBorder(null);
@@ -103,13 +100,13 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
                 btnMesa4MouseClicked(evt);
             }
         });
-        jPanel1.add(btnMesa4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 440, 180, 160));
+        jPanel1.add(btnMesa4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 470, 180, 160));
 
         lblUsuario.setBackground(new java.awt.Color(255, 255, 255));
         lblUsuario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lblUsuario.setText("Jhon");
-        jPanel1.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 31, 100, 20));
+        jPanel1.add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(165, 38, 100, 20));
 
         btnTransacciones.setBorder(null);
         btnTransacciones.setContentAreaFilled(false);
@@ -191,18 +188,16 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
                 btnPokerActionPerformed(evt);
             }
         });
-        jPanel1.add(btnPoker, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 280, 200, 200));
+        jPanel1.add(btnPoker, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 310, 210, 200));
 
         lblCargo.setBackground(new java.awt.Color(255, 255, 255));
         lblCargo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblCargo.setForeground(new java.awt.Color(255, 255, 255));
         lblCargo.setText("ADMINISTRADOR");
-        jPanel1.add(lblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1203, 29, 160, 20));
+        jPanel1.add(lblCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 38, 160, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/frmPrincipal.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel2.add(jPanel1, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -210,14 +205,14 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -237,66 +232,6 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
-    private void btnMesa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMesa1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMesa1ActionPerformed
-
-    private void btnMesa1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesa1MouseClicked
-
-        abrirDialogoSesion("Mesa 1");
-    }//GEN-LAST:event_btnMesa1MouseClicked
-
-    private void btnMesa2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesa2MouseClicked
-        abrirDialogoSesion("Mesa 2");
-    }//GEN-LAST:event_btnMesa2MouseClicked
-
-    private void btnMesa3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesa3MouseClicked
-        abrirDialogoSesion("Mesa 3");
-    }//GEN-LAST:event_btnMesa3MouseClicked
-
-    private void btnMesa4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesa4MouseClicked
-        abrirDialogoSesion("Mesa 4");
-    }//GEN-LAST:event_btnMesa4MouseClicked
-
-    private void btnMantenimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMantenimientosMouseClicked
-
-    }//GEN-LAST:event_btnMantenimientosMouseClicked
-
-    private void btnTransaccionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTransaccionesMouseClicked
-        String codCliente = "";
-        jdVentas objVenta = new jdVentas(this, true, codCliente);
-        objVenta.setLocationRelativeTo(this);
-        objVenta.setVisible(true);
-    }//GEN-LAST:event_btnTransaccionesMouseClicked
-
-    private void btnInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInventarioMouseClicked
-        jdInventario objInventario = new jdInventario((Frame) SwingUtilities.getWindowAncestor(this), true);
-        objInventario.setLocationRelativeTo(this);
-        objInventario.setVisible(true);
-    }//GEN-LAST:event_btnInventarioMouseClicked
-
-    private void btnReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReportesMouseClicked
-
-    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
-        System.exit(0);
-    }//GEN-LAST:event_btnSalirMouseClicked
-
-    private void btnMantenimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenimientosActionPerformed
-        jdMantenimientos objMantenimiento = new jdMantenimientos((Frame) SwingUtilities.getWindowAncestor(this), true);
-        objMantenimiento.setLocationRelativeTo(this);
-        objMantenimiento.setVisible(true);
-    }//GEN-LAST:event_btnMantenimientosActionPerformed
-
-    private void btnTransaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransaccionesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTransaccionesActionPerformed
-
-    private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnInventarioActionPerformed
-
     private void btnPokerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPokerActionPerformed
         String codCliente = "";
         jdVentas objVenta = new jdVentas(this, true, codCliente);
@@ -309,6 +244,66 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         objReporte.setLocationRelativeTo(this);
         objReporte.setVisible(true);
     }//GEN-LAST:event_btnReportesActionPerformed
+
+    private void btnReportesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnReportesMouseClicked
+
+    private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirMouseClicked
+
+    private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnInventarioActionPerformed
+
+    private void btnInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnInventarioMouseClicked
+        jdInventario objInventario = new jdInventario((Frame) SwingUtilities.getWindowAncestor(this), true);
+        objInventario.setLocationRelativeTo(this);
+        objInventario.setVisible(true);
+    }//GEN-LAST:event_btnInventarioMouseClicked
+
+    private void btnMantenimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMantenimientosActionPerformed
+        jdMantenimientos objMantenimiento = new jdMantenimientos((Frame) SwingUtilities.getWindowAncestor(this), true);
+        objMantenimiento.setLocationRelativeTo(this);
+        objMantenimiento.setVisible(true);
+    }//GEN-LAST:event_btnMantenimientosActionPerformed
+
+    private void btnMantenimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMantenimientosMouseClicked
+
+    }//GEN-LAST:event_btnMantenimientosMouseClicked
+
+    private void btnTransaccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTransaccionesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTransaccionesActionPerformed
+
+    private void btnTransaccionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnTransaccionesMouseClicked
+        String codCliente = "";
+        jdVentas objVenta = new jdVentas(this, true, codCliente);
+        objVenta.setLocationRelativeTo(this);
+        objVenta.setVisible(true);
+    }//GEN-LAST:event_btnTransaccionesMouseClicked
+
+    private void btnMesa4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesa4MouseClicked
+        abrirDialogoSesion("Mesa 4");
+    }//GEN-LAST:event_btnMesa4MouseClicked
+
+    private void btnMesa3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesa3MouseClicked
+        abrirDialogoSesion("Mesa 3");
+    }//GEN-LAST:event_btnMesa3MouseClicked
+
+    private void btnMesa2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesa2MouseClicked
+        abrirDialogoSesion("Mesa 2");
+    }//GEN-LAST:event_btnMesa2MouseClicked
+
+    private void btnMesa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMesa1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMesa1ActionPerformed
+
+    private void btnMesa1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnMesa1MouseClicked
+
+        abrirDialogoSesion("Mesa 1");
+    }//GEN-LAST:event_btnMesa1MouseClicked
 
     private void abrirDialogoSesion(String nombreMesa) {
         boolean estadoMesa = false;
@@ -344,7 +339,6 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnTransacciones;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables

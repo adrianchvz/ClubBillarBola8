@@ -63,7 +63,7 @@ public class clsUsuario {
         try{
             objConectar.ejecutarBD(strSQL);
         }catch (Exception e){
-            throw new Exception ("Error al registrar el usuario xd");
+            throw new Exception ("Error al registrar el usuario.");
         }
     }
     
