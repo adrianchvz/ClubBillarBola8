@@ -92,7 +92,7 @@ public class jdProducto extends javax.swing.JDialog {
         txtID.setText("");
         txtNombres.setText("");
         txtPrecio.setText("");
-        spnStock.setValue(0);
+        txtStock.setText("0");
         chkEstado.setSelected(false);
         cboMaterial.setSelectedIndex(-1);
         cboTamaño.setSelectedIndex(-1);
@@ -157,15 +157,15 @@ public class jdProducto extends javax.swing.JDialog {
         }
 
         // Agregar el nombre del tamaño seleccionado
+        if (cboSabor.getSelectedItem() != null
+                && !cboSabor.getSelectedItem().toString().equals("----------")) {
+            nombreProducto.append("").append(cboSabor.getSelectedItem().toString());
+        }
+        
+        // Agregar el nombre del tamaño seleccionado
         if (cboMaterial.getSelectedItem() != null
                 && !cboMaterial.getSelectedItem().toString().equals("----------")) {
             nombreProducto.append(" DE ").append(cboMaterial.getSelectedItem().toString());
-        }
-
-        // Agregar el nombre del tamaño seleccionado
-        if (cboSabor.getSelectedItem() != null
-                && !cboSabor.getSelectedItem().toString().equals("----------")) {
-            nombreProducto.append(" DE ").append(cboSabor.getSelectedItem().toString());
         }
 
         return nombreProducto.toString().trim();
@@ -182,7 +182,7 @@ public class jdProducto extends javax.swing.JDialog {
                 if (rsProducto.next()) {
                     txtNombres.setText(rsProducto.getString("nombresproducto"));
                     txtPrecio.setText(rsProducto.getString("precioproducto"));
-                    spnStock.setValue(rsProducto.getObject("stock"));
+                    txtStock.setText(rsProducto.getString("stock"));
                     chkEstado.setSelected(rsProducto.getBoolean("estadoproducto"));
                     cboMaterial.setSelectedItem(rsProducto.getString("material"));
                     cboTamaño.setSelectedItem(rsProducto.getString("tamaño"));
@@ -212,11 +212,11 @@ public class jdProducto extends javax.swing.JDialog {
         btnDarBaja = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         txtPrecio = new javax.swing.JTextField();
-        spnStock = new javax.swing.JSpinner();
         chkEstado = new javax.swing.JCheckBox();
         cboTamaño = new capaInterfaz.componentes.Combobox();
         txtNombres = new javax.swing.JLabel();
         cboSabor = new capaInterfaz.componentes.Combobox();
+        txtStock = new javax.swing.JTextField();
         txtID = new javax.swing.JLabel();
         cboMaterial = new capaInterfaz.componentes.Combobox();
         cboMarca = new capaInterfaz.componentes.Combobox();
@@ -303,9 +303,6 @@ public class jdProducto extends javax.swing.JDialog {
         txtPrecio.setBorder(null);
         jPanel1.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(421, 101, 40, -1));
 
-        spnStock.setBorder(null);
-        jPanel1.add(spnStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(515, 99, 50, 20));
-
         chkEstado.setBorder(null);
         chkEstado.setContentAreaFilled(false);
         jPanel1.add(chkEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(635, 101, -1, -1));
@@ -329,7 +326,7 @@ public class jdProducto extends javax.swing.JDialog {
         txtNombres.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 101, 300, 16));
 
-        cboSabor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "----------", "TRIGO", "FRESA", "PIÑA", "ARANDANO", "MACA", "KOLA INGLESA", "NARANJA", "LIMA", "WATERMELON", "FRAMBUESA", "CAMU CAMU", "DURAZNO", "LIMÓN", "ALOE" }));
+        cboSabor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "----------", "ALOE", "ARANDANO", "CAMU CAMU", "CANELA", "DURAZNO", "FRAMBUESA", "FRESA", "KOLA INGLESA", "LIMA", "LIMÓN", "MACA", "NARANJA", "PIÑA", "SANDÍA", "TRIGO", "WATERMELON" }));
         cboSabor.setSelectedIndex(-1);
         cboSabor.setFocusable(false);
         cboSabor.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -344,11 +341,18 @@ public class jdProducto extends javax.swing.JDialog {
         });
         jPanel1.add(cboSabor, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, 150, 25));
 
+        txtStock.setBackground(new java.awt.Color(255, 255, 255));
+        txtStock.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtStock.setForeground(new java.awt.Color(0, 0, 0));
+        txtStock.setText("0");
+        txtStock.setBorder(null);
+        jPanel1.add(txtStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 101, 50, -1));
+
         txtID.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtID.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 30, 20));
 
-        cboMaterial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "----------", "VIDRIO", "PLÁSTICO", "LATA", "CAJA" }));
+        cboMaterial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "----------", "CAJETILLA", "LATA", "PLÁSTICO", "VIDRIO" }));
         cboMaterial.setSelectedIndex(-1);
         cboMaterial.setFocusable(false);
         cboMaterial.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -449,14 +453,14 @@ public class jdProducto extends javax.swing.JDialog {
                     limpiarControles();
                 } else {
                     btnRegistrar.setText("REGISTRAR");
-                    //evaluar campos
                     String material = cboMaterial.getSelectedItem() != null ? cboMaterial.getSelectedItem().toString() : null;
                     String sabor = cboSabor.getSelectedItem() != null ? cboSabor.getSelectedItem().toString() : null;
                     String tamaño = cboTamaño.getSelectedItem() != null ? cboTamaño.getSelectedItem().toString() : null;
                     objProducto.registrarProducto(Integer.parseInt(txtID.getText()), txtNombres.getText(),
-                            Double.parseDouble(txtPrecio.getText()), (int) spnStock.getValue(), chkEstado.isSelected(),
+                            Double.parseDouble(txtPrecio.getText()), Integer.parseInt(txtStock.getText()), chkEstado.isSelected(),
                             material, tamaño, sabor,
-                            objMarca.obtenerIDMarca(cboMarca.getSelectedItem().toString()), objCategoria.obtenerIDCategoria(cboCategoria.getSelectedItem().toString()));
+                            objMarca.obtenerIDMarca(cboMarca.getSelectedItem().toString()), 
+                            objCategoria.obtenerIDCategoria(cboCategoria.getSelectedItem().toString()));
                     JOptionPane.showMessageDialog(this, "Producto registrado correctamente.",
                             "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     limpiarControles();
@@ -492,7 +496,8 @@ public class jdProducto extends javax.swing.JDialog {
                             options[0]);
                     if (opcion == JOptionPane.YES_NO_OPTION) {
                         objProducto.modificarProducto(Integer.parseInt(txtID.getText()), txtNombres.getText(),
-                                Double.parseDouble(txtPrecio.getText()), (int) spnStock.getValue(), chkEstado.isSelected(),
+                                Double.parseDouble(txtPrecio.getText()), Integer.parseInt(txtStock.getText()), 
+                                chkEstado.isSelected(),
                                 cboMaterial.getSelectedItem().toString(), cboTamaño.getSelectedItem().toString(), cboSabor.getSelectedItem().toString(),
                                 objMarca.obtenerIDMarca(cboMarca.getSelectedItem().toString()),
                                 objCategoria.obtenerIDCategoria(cboCategoria.getSelectedItem().toString()));
@@ -522,7 +527,7 @@ public class jdProducto extends javax.swing.JDialog {
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         txtNombres.setText("");
         txtPrecio.setText("");
-        spnStock.setValue(0);
+        txtStock.setText("0");
         chkEstado.setSelected(false);
         cboMaterial.setSelectedIndex(-1);
         cboTamaño.setSelectedIndex(-1);
@@ -676,10 +681,10 @@ public class jdProducto extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner spnStock;
     private javax.swing.JTable tblProductos;
     private javax.swing.JLabel txtID;
     private javax.swing.JLabel txtNombres;
     private javax.swing.JTextField txtPrecio;
+    private javax.swing.JTextField txtStock;
     // End of variables declaration//GEN-END:variables
 }

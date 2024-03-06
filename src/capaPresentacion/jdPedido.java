@@ -355,23 +355,29 @@ public class jdPedido extends javax.swing.JDialog {
             if (!txtPedido.getText().isEmpty() && !lblTotalVenta.getText().isEmpty()
                     && !txtSesion.getText().isEmpty() && !lblUsuario.getText().isEmpty()
                     && !lblCliente.getText().isEmpty()) {
-                if (opcion == JOptionPane.YES_OPTION) {
-                    objPedido.registrarPedido(Integer.parseInt(txtPedido.getText()),
-                            Double.parseDouble(lblTotalVenta.getText()),
-                            Integer.parseInt(txtSesion.getText()), lblUsuario.getText(),
-                            lblCliente.getText(), tblDetalle);
-                    JOptionPane.showMessageDialog(this, "Se registró el pedido con éxito.", 
+                // Verificar si la sesión y la mesa son 0
+                if (Integer.parseInt(txtSesion.getText()) == 0 || Integer.parseInt(txtMesa.getText()) == 0) {
+                    JOptionPane.showMessageDialog(this, "Por favor, seleccione la mesa y la sesión en la que desea agregar el pedido.",
                             "Mensaje", JOptionPane.INFORMATION_MESSAGE);
-                    limpiarControles();
-                    listarPedidos();
-                    lblUsuario.setText(clsSesionUsuario.nombreUsuario);
+                } else {
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        objPedido.registrarPedido(Integer.parseInt(txtPedido.getText()),
+                                Double.parseDouble(lblTotalVenta.getText()),
+                                Integer.parseInt(txtSesion.getText()), lblUsuario.getText(),
+                                lblCliente.getText(), tblDetalle);
+                        JOptionPane.showMessageDialog(this, "Se registró el pedido con éxito.",
+                                "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+                        limpiarControles();
+                        listarPedidos();
+                        lblUsuario.setText(clsSesionUsuario.nombreUsuario);
+                    }
                 }
             } else {
-                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos antes de registrar el pedido.", 
+                JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos antes de registrar el pedido.",
                         "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al registrar el pedido:" + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error al registrar el pedido.");
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
@@ -480,7 +486,7 @@ public class jdPedido extends javax.swing.JDialog {
 
     private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
         if (idProductoSeleccionado != -1) { // Verificar si se ha seleccionado un producto
-            String cantidadEliminarString = JOptionPane.showInputDialog(this, "Ingrese la cantidad que desea eliminar:", 
+            String cantidadEliminarString = JOptionPane.showInputDialog(this, "Ingrese la cantidad que desea eliminar:",
                     "Eliminar Producto", JOptionPane.QUESTION_MESSAGE);
 
             if (cantidadEliminarString != null && !cantidadEliminarString.isEmpty()) {
@@ -496,7 +502,7 @@ public class jdPedido extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Debe ingresar una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione un producto para eliminar.", 
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione un producto para eliminar.",
                     "Mensaje", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarProductoActionPerformed
@@ -529,7 +535,7 @@ public class jdPedido extends javax.swing.JDialog {
             if (opcion == JOptionPane.YES_OPTION) {
                 // Actualizar el estado de pago del pedido a true
                 objPedido.actualizarEstadoPago(idPedidoSeleccionado, true);
-                JOptionPane.showMessageDialog(this, "Se registró el pago con éxito.", 
+                JOptionPane.showMessageDialog(this, "Se registró el pago con éxito.",
                         "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                 // Volver a listar los pedidos para actualizar la tabla de pedidos
                 listarPedidos();
@@ -618,10 +624,10 @@ public class jdPedido extends javax.swing.JDialog {
                             calcularNuevoPrecio(i);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(rootPane, "Ingrese una cantidad menor o igual a la actual.", 
+                        JOptionPane.showMessageDialog(rootPane, "Ingrese una cantidad menor o igual a la actual.",
                                 "Mensaje", JOptionPane.INFORMATION_MESSAGE);
                     }
-                    break; 
+                    break;
                 }
             }
 
