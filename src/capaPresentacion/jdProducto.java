@@ -149,23 +149,22 @@ public class jdProducto extends javax.swing.JDialog {
                 && !cboMarca.getSelectedItem().toString().equals("")) {
             nombreProducto.append(cboMarca.getSelectedItem().toString()).append(" ");
         }
-
-        // Agregar el nombre del tamaño seleccionado
-        if (cboTamaño.getSelectedItem() != null
-                && !cboTamaño.getSelectedItem().toString().equals("----------")) {
-            nombreProducto.append(cboTamaño.getSelectedItem().toString()).append(" ");
-        }
-
         // Agregar el nombre del tamaño seleccionado
         if (cboSabor.getSelectedItem() != null
                 && !cboSabor.getSelectedItem().toString().equals("----------")) {
-            nombreProducto.append("").append(cboSabor.getSelectedItem().toString());
+            nombreProducto.append(cboSabor.getSelectedItem().toString()).append(" ");
         }
         
         // Agregar el nombre del tamaño seleccionado
         if (cboMaterial.getSelectedItem() != null
                 && !cboMaterial.getSelectedItem().toString().equals("----------")) {
-            nombreProducto.append(" DE ").append(cboMaterial.getSelectedItem().toString());
+            nombreProducto.append("DE ").append(cboMaterial.getSelectedItem().toString()).append(" ");
+        }
+        
+        // Agregar el nombre del tamaño seleccionado
+        if (cboTamaño.getSelectedItem() != null
+                && !cboTamaño.getSelectedItem().toString().equals("----------")) {
+            nombreProducto.append(cboTamaño.getSelectedItem().toString()).append("");
         }
 
         return nombreProducto.toString().trim();
