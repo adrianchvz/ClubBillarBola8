@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package capaPresentacion;
 
 import capaInterfaz.componentes.ScrollBar;
@@ -54,8 +49,8 @@ public class jdSesion extends javax.swing.JDialog {
         // Seleccionar checkbox basado en el estado de la mesa
         chkEstado.setSelected(estadoMesa);
         lblMesa.setText(String.valueOf(idMesa));
-        
-        tblSesiones = new Table(); 
+
+        tblSesiones = new Table();
         jScrollPane1.setViewportView(tblSesiones);
         jScrollPane1.setVerticalScrollBar(new ScrollBar());
 
@@ -93,7 +88,7 @@ public class jdSesion extends javax.swing.JDialog {
         DefaultTableModel modelo = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; 
+                return false;
             }
         };
         modelo.addColumn("SESIÓN");
@@ -109,6 +104,7 @@ public class jdSesion extends javax.swing.JDialog {
 
         try {
             rsSesiones = objSesion.listarSesiones(idMesa);
+
             while (rsSesiones.next()) {
                 String fechaInicioString = rsSesiones.getString("fechaInicio");
                 String fechaFinString = rsSesiones.getString("fechaFin");
@@ -136,7 +132,8 @@ public class jdSesion extends javax.swing.JDialog {
                     estado = "En juego";
                 } else {
                     estado = "Terminado";
-                }     
+                }
+
                 registro.add(2, rsSesiones.getDouble("preciosesion"));
                 registro.add(3, estado);
                 registro.add(4, fechaInicioFormateada);
@@ -150,22 +147,21 @@ public class jdSesion extends javax.swing.JDialog {
             }
             tblSesiones.setModel(modelo);
 
-            tblSesiones.getColumnModel().getColumn(0).setPreferredWidth(40); 
+            tblSesiones.getColumnModel().getColumn(0).setPreferredWidth(40);
             tblSesiones.getColumnModel().getColumn(1).setPreferredWidth(20);
-            tblSesiones.getColumnModel().getColumn(2).setPreferredWidth(30); 
+            tblSesiones.getColumnModel().getColumn(2).setPreferredWidth(30);
             tblSesiones.getColumnModel().getColumn(3).setPreferredWidth(50);
-            tblSesiones.getColumnModel().getColumn(4).setPreferredWidth(70); 
+            tblSesiones.getColumnModel().getColumn(4).setPreferredWidth(70);
             tblSesiones.getColumnModel().getColumn(5).setPreferredWidth(70);
-            tblSesiones.getColumnModel().getColumn(6).setPreferredWidth(50); 
+            tblSesiones.getColumnModel().getColumn(6).setPreferredWidth(50);
             tblSesiones.getColumnModel().getColumn(7).setPreferredWidth(50);
-            tblSesiones.getColumnModel().getColumn(8).setPreferredWidth(100); 
+            tblSesiones.getColumnModel().getColumn(8).setPreferredWidth(100);
             tblSesiones.getColumnModel().getColumn(9).setPreferredWidth(100);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -332,7 +328,7 @@ public class jdSesion extends javax.swing.JDialog {
             objSesion.iniciarSesion(Integer.parseInt(lblSesion.getText()), Integer.parseInt(txtPrecio.getText()),
                     Integer.parseInt(lblMesa.getText()), chkEstado.isSelected());
             listarSesiones();
-            JOptionPane.showMessageDialog(this, "Sesión registrada correctamente.", 
+            JOptionPane.showMessageDialog(this, "Sesión registrada correctamente.",
                     "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             // Desactivar el botón de iniciar mesa
             btnIniciar.setEnabled(false);
@@ -360,14 +356,14 @@ public class jdSesion extends javax.swing.JDialog {
             objSesion.actualizarDuracion(idSesion);
             objSesion.actualizarMontoTotal(idSesion);
 
-            // Actualizar el estado de la mesa a "Libre"
-            objMesa.darAltaMesa(idMesa); // Suponiendo que darAltaMesa actualiza el estado a "Libre"
+            // Actualizar el estado de la mesa a "Disponible"
+            objMesa.darAltaMesa(idMesa); // Suponiendo que darAltaMesa actualiza el estado a "Disponible"
 
             // Actualizar la interfaz de usuario u otras acciones necesarias
             chkEstado.setSelected(true);
             mostrarNumSesion();
             listarSesiones();
-            JOptionPane.showMessageDialog(this, "Sesión terminada correctamente.", 
+            JOptionPane.showMessageDialog(this, "Sesión terminada correctamente.",
                     "Mensaje", JOptionPane.INFORMATION_MESSAGE);
             btnIniciar.setEnabled(true);
             btnTerminar.setEnabled(false);
@@ -395,12 +391,23 @@ public class jdSesion extends javax.swing.JDialog {
 
     private void tblSesionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSesionesMouseClicked
         lblSesion.setText(String.valueOf(tblSesiones.getValueAt(tblSesiones.getSelectedRow(), 0)));
-        btnIniciar.setEnabled(false);
-        btnTerminar.setEnabled(true);
+        
+        try{
+            int idSesion = Integer.parseInt(lblSesion.getText());
+            boolean estado = objSesion.obtenerEstadoSesion(idSesion);
+        if (estado == true) {
+            btnIniciar.setEnabled(false);
+            btnTerminar.setEnabled(true);
+        } else {
+            btnIniciar.setEnabled(false);
+            btnTerminar.setEnabled(false);
+        }
+        }catch (Exception e){   
+        }
     }//GEN-LAST:event_tblSesionesMouseClicked
 
-    public Image getIconImage(){
-        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("recursos/icono.png"));  
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("recursos/icono.png"));
         return retValue;
     }
 

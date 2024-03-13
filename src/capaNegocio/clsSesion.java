@@ -216,4 +216,23 @@ public class clsSesion {
         }
     }
 
+    public boolean obtenerEstadoSesion(int idSesion) throws Exception {
+        strSQL = "select estado from sesion where idsesion=" + idSesion;
+
+        boolean estado = false; // Inicializar el estado
+
+        try {
+            rs = objConectar.consultarBD(strSQL);
+
+            // Verificar si se encontró alguna sesión en juego para la mesa
+            if (rs.next()) {
+                estado = rs.getBoolean("estado");
+            }
+        } catch (Exception e) {
+            throw new Exception("Error al verificar si existe una sesión en juego para esta mesa: " + e.getMessage());
+        }
+
+        return estado;
+    }
+
 }
