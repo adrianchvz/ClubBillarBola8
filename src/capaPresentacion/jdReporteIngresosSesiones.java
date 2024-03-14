@@ -14,11 +14,11 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.swing.JRViewer;
 
-public class jdReporteIngresosPedidos extends javax.swing.JDialog {
+public class jdReporteIngresosSesiones extends javax.swing.JDialog {
 
     clsUsuario objUsuario = new clsUsuario();
 
-    public jdReporteIngresosPedidos(java.awt.Frame parent, boolean modal) {
+    public jdReporteIngresosSesiones(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         this.vistaReporte.setVisible(false);
@@ -34,12 +34,11 @@ public class jdReporteIngresosPedidos extends javax.swing.JDialog {
         fechaInicio = new com.toedter.calendar.JDateChooser();
         fechaFin = new com.toedter.calendar.JDateChooser();
         btnReporte = new javax.swing.JButton();
-        cboUsuario = new capaInterfaz.componentes.Combobox();
         vistaReporte = new javax.swing.JDesktopPane();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(":: REPORTE DE INGRESOS EN PEDIDOS  ::");
+        setTitle(":: REPORTE DE INGRESOS EN SESIONES ::");
         setIconImage(getIconImage());
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -50,8 +49,8 @@ public class jdReporteIngresosPedidos extends javax.swing.JDialog {
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 109, 120, -1));
-        jPanel1.add(fechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 109, 120, -1));
+        jPanel1.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 120, -1));
+        jPanel1.add(fechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 120, -1));
 
         btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/verReporte1.png"))); // NOI18N
         btnReporte.setBorder(null);
@@ -62,10 +61,7 @@ public class jdReporteIngresosPedidos extends javax.swing.JDialog {
                 btnReporteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 98, -1, -1));
-
-        cboUsuario.setFocusable(false);
-        jPanel1.add(cboUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 105, 170, -1));
+        jPanel1.add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, -1, -1));
 
         javax.swing.GroupLayout vistaReporteLayout = new javax.swing.GroupLayout(vistaReporte);
         vistaReporte.setLayout(vistaReporteLayout);
@@ -80,7 +76,7 @@ public class jdReporteIngresosPedidos extends javax.swing.JDialog {
 
         jPanel1.add(vistaReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 157, 770, 330));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/frmRpIngresosPedidos.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/frmRpIngresosSesiones.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 830, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -119,19 +115,12 @@ public class jdReporteIngresosPedidos extends javax.swing.JDialog {
                 return; // Salir del método si la fecha de inicio es posterior a la fecha de fin
             }
 
-            // Verificar si se ha seleccionado un usuario
-            if (cboUsuario.getSelectedItem() == null) {
-                JOptionPane.showMessageDialog(this, "Por favor, seleccione un usuario", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                return; // Salir del método si no se ha seleccionado un usuario
-            }
-
             // Manejo de los parámetros
             Map<String, Object> parametros = new HashMap<>();
             parametros.put("fechaInicio", fechaInicioDate);
             parametros.put("fechaFin", fechaFinDate);
-            parametros.put("nombreUsuario", cboUsuario.getSelectedItem().toString());
 
-            JRViewer objReporte = new clsReporte().reporteInterno("rpIngresosPedidos.jasper", parametros);
+            JRViewer objReporte = new clsReporte().reporteInterno("rpIngresosSesiones.jasper", parametros);
             contenedor.add(objReporte);
 
             this.vistaReporte.setVisible(true);
@@ -144,23 +133,9 @@ public class jdReporteIngresosPedidos extends javax.swing.JDialog {
     }//GEN-LAST:event_btnReporteActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        listarUsuarios();
+        
     }//GEN-LAST:event_formWindowOpened
 
-    private void listarUsuarios() {
-
-        ResultSet rsUsuarios = null;
-        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-        cboUsuario.setModel(modelo);
-
-        try {
-            rsUsuarios = objUsuario.listarUsuarios();
-            while (rsUsuarios.next()) {
-                modelo.addElement(rsUsuarios.getString("nombresusuario"));
-            }
-        } catch (Exception e) {
-        }
-    }
 
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("recursos/icono.png"));
@@ -170,7 +145,6 @@ public class jdReporteIngresosPedidos extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnReporte;
-    private capaInterfaz.componentes.Combobox cboUsuario;
     private com.toedter.calendar.JDateChooser fechaFin;
     private com.toedter.calendar.JDateChooser fechaInicio;
     private javax.swing.JLabel jLabel2;

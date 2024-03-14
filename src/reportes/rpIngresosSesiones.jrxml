@@ -9,19 +9,14 @@
 	<parameter name="fechaFin" class="java.util.Date">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
-	<parameter name="nombreUsuario" class="java.lang.String">
-		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
-	</parameter>
 	<queryString>
-		<![CDATA[SELECT COALESCE(SUM(totalpedido),0) AS totalpedido
-FROM pedido p
-INNER JOIN usuario u ON p.idusuario = u.idusuario
-WHERE fechaPedido = $P{fechaInicio}
-  AND fechaPedido = $P{fechaFin}
-  AND estadopago = true
-  AND u.nombresusuario = $P{nombreUsuario}]]>
+		<![CDATA[SELECT SUM(montototalsesion) AS totalsesiones 
+FROM sesion s
+WHERE fechaInicio >= $P{fechaInicio}
+  AND fechaFin <= $P{fechaFin}
+  AND estado= false]]>
 	</queryString>
-	<field name="totalpedido" class="java.math.BigDecimal"/>
+	<field name="totalsesiones" class="java.math.BigDecimal"/>
 	<title>
 		<band height="37" splitType="Stretch">
 			<staticText>
@@ -34,19 +29,19 @@ WHERE fechaPedido = $P{fechaInicio}
 		</band>
 	</title>
 	<detail>
-		<band height="69" splitType="Stretch">
+		<band height="41" splitType="Stretch">
 			<staticText>
-				<reportElement x="103" y="19" width="16" height="20" uuid="5a225d5c-7e67-4bf4-8513-44e335d63643"/>
-				<text><![CDATA[S/]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="14" y="19" width="89" height="20" uuid="d39d08a0-53cd-4ee4-b340-0443609170ef"/>
-				<text><![CDATA[TOTAL PEDIDOS:]]></text>
+				<reportElement x="17" y="18" width="100" height="20" uuid="27311e14-3c03-40f2-8093-f7323f3729fe"/>
+				<text><![CDATA[TOTAL SESIONES:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="123" y="19" width="100" height="20" uuid="e3b5cff3-87ec-471f-96a9-a7d21507d8b0"/>
-				<textFieldExpression><![CDATA[$F{totalpedido}]]></textFieldExpression>
+				<reportElement x="133" y="18" width="100" height="20" uuid="a6de2bf0-a87e-41f5-9dd4-471a3268973c"/>
+				<textFieldExpression><![CDATA[$F{totalsesiones}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="118" y="18" width="13" height="18" uuid="c7fc0385-54c6-42b1-a3b4-c2d49eb2f140"/>
+				<text><![CDATA[S/]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<pageFooter>

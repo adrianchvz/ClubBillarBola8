@@ -72,15 +72,18 @@ public class jdInicioSesion extends javax.swing.JDialog {
         });
         jPanel2.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 220, 40));
 
-        txtUsuario.setBackground(new java.awt.Color(11, 96, 3));
+        txtUsuario.setBackground(new java.awt.Color(255, 255, 255));
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.setBorder(null);
+        txtUsuario.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtUsuario.setOpaque(false);
         jPanel2.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 180, 26));
 
         txtContraseña.setBackground(new java.awt.Color(11, 96, 3));
         txtContraseña.setForeground(new java.awt.Color(255, 255, 255));
         txtContraseña.setBorder(null);
+        txtContraseña.setCaretColor(new java.awt.Color(255, 255, 255));
         txtContraseña.setOpaque(false);
         txtContraseña.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {

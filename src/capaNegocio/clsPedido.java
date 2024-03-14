@@ -50,9 +50,9 @@ public class clsPedido {
             sent = con.createStatement();
             int usuarioID = obtenerIDUsuario(usuario);
             int clienteID = obtenerIDCliente(cliente);
-            strSQL = "insert into pedido (idpedido, totalpedido, estadopago, idsesion, idusuario, idcliente) \n"
+            strSQL = "insert into pedido (idpedido, totalpedido, estadopago, idsesion, idusuario, idcliente, fechapedido) \n"
                     + "values (" + idPedido + "," + total + ",false," + sesion + ","
-                    + "" + usuarioID + "," + clienteID + ");";
+                    + "" + usuarioID + "," + clienteID + ", current_date);";
             sent.executeUpdate(strSQL);
 
             //Enviar a que se graben los productos seleccionados:
